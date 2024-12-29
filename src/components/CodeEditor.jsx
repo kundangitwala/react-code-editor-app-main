@@ -1,3 +1,55 @@
+// import { useRef, useState } from "react";
+// import { Box, HStack } from "@chakra-ui/react";
+// import { Editor } from "@monaco-editor/react";
+// import LanguageSelector from "./LanguageSelector";
+// import { CODE_SNIPPETS } from "../constants";
+// import Output from "./Output";
+
+// const CodeEditor = () => {
+//   const editorRef = useRef();
+//   const [value, setValue] = useState("");
+//   const [language, setLanguage] = useState("javascript");
+
+//   const onMount = (editor) => {
+//     editorRef.current = editor;
+//     editor.focus();
+//   };
+
+//   const onSelect = (language) => {
+//     setLanguage(language);
+//     setValue(CODE_SNIPPETS[language]);
+//   };
+
+//   return (
+//     <Box>
+//       <HStack spacing={3}>
+//         <Box w="50%">
+//           <LanguageSelector language={language} onSelect={onSelect} />
+//           <Editor
+//             options={{
+//               minimap: {
+//                 enabled: false,
+//               },
+//             }}
+//             height="75vh"
+//             theme="vs-dark"
+
+//             language={language}
+//             defaultValue={CODE_SNIPPETS[language]}
+//             onMount={onMount}
+//             value={value}
+//             onChange={(value) => setValue(value)}
+//           />
+//         </Box>
+//         <Output editorRef={editorRef} language={language} />
+//       </HStack>
+//     </Box>
+//   );
+// };
+// export default CodeEditor;
+
+// updation in features
+
 import { useRef, useState } from "react";
 import { Box, HStack } from "@chakra-ui/react";
 import { Editor } from "@monaco-editor/react";
@@ -5,9 +57,8 @@ import LanguageSelector from "./LanguageSelector";
 import { CODE_SNIPPETS } from "../constants";
 import Output from "./Output";
 
-const CodeEditor = () => {
+const CodeEditor = ({ value, onChange }) => {
   const editorRef = useRef();
-  const [value, setValue] = useState("");
   const [language, setLanguage] = useState("javascript");
 
   const onMount = (editor) => {
@@ -17,12 +68,13 @@ const CodeEditor = () => {
 
   const onSelect = (language) => {
     setLanguage(language);
-    setValue(CODE_SNIPPETS[language]);
+    const snippet = CODE_SNIPPETS[language];
+    onChange && onChange(snippet);
   };
 
   return (
     <Box>
-      <HStack spacing={4}>
+      <HStack spacing={3}>
         <Box w="50%">
           <LanguageSelector language={language} onSelect={onSelect} />
           <Editor
@@ -34,10 +86,9 @@ const CodeEditor = () => {
             height="75vh"
             theme="vs-dark"
             language={language}
-            defaultValue={CODE_SNIPPETS[language]}
-            onMount={onMount}
             value={value}
-            onChange={(value) => setValue(value)}
+            onMount={onMount}
+            onChange={(val) => onChange && onChange(val)}
           />
         </Box>
         <Output editorRef={editorRef} language={language} />
@@ -45,4 +96,12 @@ const CodeEditor = () => {
     </Box>
   );
 };
+
 export default CodeEditor;
+
+
+
+
+
+
+

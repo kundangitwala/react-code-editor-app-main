@@ -31,11 +31,11 @@ const Output = ({ editorRef, language }) => {
 
   return (
     <Box w="50%">
-      <Text mb={2} fontSize="lg">
+      <Text mb={2} fontSize="x-large">
         Output
       </Text>
       <Button
-        variant="outline"
+        // variant="outline"
         colorScheme="green"
         mb={4}
         isLoading={isLoading}
@@ -47,7 +47,7 @@ const Output = ({ editorRef, language }) => {
         height="75vh"
         p={2}
         color={isError ? "red.400" : ""}
-        border="1px solid"
+        border="3px solid"
         borderRadius={4}
         borderColor={isError ? "red.500" : "#333"}
       >
